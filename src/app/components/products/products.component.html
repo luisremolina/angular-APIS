@@ -1,7 +1,26 @@
+<button (click)="createNewProduct()"> create </button>
+<button (click)="onShowDetail('123123')"> detail nof found </button>
 <div class="products--grid">
   <app-product
     [product]="product"
     *ngFor="let product of products"
     (addedProduct)="onAddToShoppingCart($event)"
+    (showProduct)="onShowDetail($event)"
   ></app-product>
+  <button (click)="loadMore()">Load more</button>
+</div>
+<div class="product-detail" [class.active] = "showProductsDetail">
+  {{ statusDetail }}
+  <div *ngIf="productChoosen">
+    <button (click)="toggleProductDetail()">Close</button>
+    <h1>{{ productChoosen.title }}</h1>
+    <swiper [slidesPerView]="1">
+      <ng-template swiperSlide *ngFor="let img of productChoosen.images">
+        <img [src]="img" alt="">
+      </ng-template>
+    </swiper>
+    <p> {{ productChoosen.description }} </p>
+    <button (click)="updateProduct()">Editar producto</button>
+    <button (click)="deleteProduct()">Eliminar producto</button>
+  </div>
 </div>
